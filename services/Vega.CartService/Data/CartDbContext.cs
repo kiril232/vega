@@ -12,6 +12,8 @@ public class CartDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
+        mb.HasDefaultSchema("carts");
+
         var c = mb.Entity<Cart>();
         c.ToTable("carts");
         c.HasKey(x => x.Id);

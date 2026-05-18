@@ -12,6 +12,8 @@ public class OrderDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
+        mb.HasDefaultSchema("orders");
+
         var o = mb.Entity<Order>();
         o.ToTable("orders");
         o.HasKey(x => x.Id);
