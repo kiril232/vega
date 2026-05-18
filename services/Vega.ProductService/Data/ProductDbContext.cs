@@ -11,6 +11,8 @@ public class ProductDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
+        mb.HasDefaultSchema("products");
+
         var p = mb.Entity<Product>();
         p.ToTable("products");
         p.HasKey(x => x.Id);

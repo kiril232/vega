@@ -24,7 +24,9 @@ with green accents, large product imagery, and a clear "add to cart" flow.
 +----------------+        +-----------------+
 ```
 
-Each service owns its own PostgreSQL schema. Services communicate over HTTP.
+Each service owns its own PostgreSQL schema (`users`, `products`, `carts`,
+`orders`) inside a shared `vega` database — services never read another
+service's schema, only its HTTP API. Services communicate over HTTP.
 The frontend talks to every service through REST; JWTs issued by the User
 Service are attached to authenticated requests.
 
@@ -41,7 +43,8 @@ Service are attached to authenticated requests.
 
 ## Running locally
 
-Bring up Postgres (creates one database per service):
+Bring up Postgres (a single `vega` database; each service creates its own
+schema on first migrate):
 
 ```
 docker compose up -d
