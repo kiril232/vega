@@ -39,3 +39,4 @@ TestResults/
 # misc
 *.tsbuildinfo
 .cache/
+.claude/
