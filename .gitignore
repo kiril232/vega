@@ -1,0 +1,41 @@
+# build outputs
+**/bin/
+**/obj/
+**/out/
+**/dist/
+**/build/
+
+# node
+node_modules/
+.npm/
+.pnpm-store/
+
+# env
+.env
+.env.local
+.env.*.local
+*.user
+*.suo
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+
+# logs
+*.log
+logs/
+
+# os
+.DS_Store
+Thumbs.db
+
+# coverage
+coverage/
+*.coverage
+TestResults/
+
+# misc
+*.tsbuildinfo
+.cache/
