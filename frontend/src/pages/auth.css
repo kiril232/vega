@@ -1,0 +1,36 @@
+.auth-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  background: #fff;
+  border-radius: var(--vega-radius);
+  border: 1px solid var(--vega-border);
+  box-shadow: var(--vega-shadow);
+}
+
+.auth-card h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+.auth-card p.muted {
+  margin: 0 0 24px;
+}
+
+.auth-card .btn {
+  width: 100%;
+  padding: 12px;
+}
+
+.auth-card .alt {
+  text-align: center;
+  font-size: 13px;
+  color: var(--vega-muted);
+  margin-top: 18px;
+}
