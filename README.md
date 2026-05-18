@@ -41,8 +41,13 @@ Service are attached to authenticated requests.
 
 ## Running locally
 
-Each service expects a PostgreSQL connection string in `appsettings.json` or
-the `ConnectionStrings__Default` env var. Bring up the DB, then:
+Bring up Postgres (creates one database per service):
+
+```
+docker compose up -d
+```
+
+Run each service in its own shell:
 
 ```
 dotnet run --project services/Vega.UserService
@@ -56,9 +61,23 @@ Frontend:
 
 ```
 cd frontend
+cp .env.example .env
 npm install
 npm run dev
 ```
+
+Open http://localhost:5173.
+
+### Notes
+
+- The User Service signs JWTs that the other services validate, so they all
+  share the `Jwt:Issuer/Audience/Key` config block. In production, that key
+  belongs in a secret store, not in `appsettings.json`.
+- The Product Service seeds a small inventory on first boot so the storefront
+  has something to render.
+- The Payment Service is a sandbox: it sleeps for a moment and returns
+  `Paid` for most orders, `Failed` for a small random slice plus any
+  suspiciously round high-value order.
 
 ## Tech
 

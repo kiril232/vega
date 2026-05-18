@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: vega-postgres
+    environment:
+      POSTGRES_USER: vega
+      POSTGRES_PASSWORD: vega
+    ports:
+      - "5432:5432"
+    volumes:
+      - vega-pg:/var/lib/postgresql/data
+      - ./scripts/init-databases.sh:/docker-entrypoint-initdb.d/init.sh:ro
+
+volumes:
+  vega-pg:
