@@ -1,0 +1,91 @@
+.vega-header {
+  background: #fff;
+  border-bottom: 1px solid var(--vega-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.vega-header-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 24px;
+}
+
+.vega-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--vega-text);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.vega-logo:hover { text-decoration: none; }
+
+.vega-logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--vega-green);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.vega-logo small {
+  color: var(--vega-muted);
+  font-weight: 500;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.vega-nav {
+  display: flex;
+  gap: 18px;
+  flex: 1;
+}
+
+.vega-nav a {
+  color: var(--vega-text);
+  font-weight: 500;
+  padding: 6px 4px;
+  border-bottom: 2px solid transparent;
+}
+.vega-nav a.active {
+  color: var(--vega-green-dark);
+  border-bottom-color: var(--vega-green);
+}
+
+.vega-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vega-greeting { font-size: 13px; }
+
+.vega-cart-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--vega-green-soft);
+  border-radius: 999px;
+  color: var(--vega-green-dark);
+  font-weight: 600;
+  font-size: 14px;
+}
+.vega-cart-pill:hover { background: #d8ecde; text-decoration: none; }
+
+.vega-cart-badge {
+  background: var(--vega-green);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-weight: 700;
+}
