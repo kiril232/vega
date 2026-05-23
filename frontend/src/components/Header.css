@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   gap: 28px;
-  padding: 16px 24px;
+  padding: 20px 24px;
 }
 
 .vega-logo {
@@ -54,10 +54,18 @@
   font-weight: 500;
   padding: 6px 4px;
   border-bottom: 2px solid transparent;
+  /* the border-bottom IS the underline; suppress the global a:hover rule */
+}
+.vega-nav a:hover {
+  text-decoration: none;
 }
 .vega-nav a.active {
   color: var(--vega-green-dark);
   border-bottom-color: var(--vega-green);
+  /* don't pile on a second underline when hovering an active link */
+}
+.vega-nav a.active:hover {
+  text-decoration: none;
 }
 
 .vega-actions {
