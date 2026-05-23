@@ -17,6 +17,8 @@ public class CartRepository : ICartRepository
         var cart = await GetByUserAsync(userId, ct);
         if (cart is not null) return cart;
 
+        // only add to the context — the caller does the single SaveChanges
+        // so cart creation and any subsequent mutation go in one transaction
         cart = new Cart
         {
             Id = Guid.NewGuid(),
@@ -25,7 +27,6 @@ public class CartRepository : ICartRepository
             UpdatedAt = DateTime.UtcNow
         };
         _db.Carts.Add(cart);
-        await _db.SaveChangesAsync(ct);
         return cart;
     }
 

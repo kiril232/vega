@@ -18,6 +18,8 @@ public class CartService : ICartService
     public async Task<CartResponse> GetAsync(Guid userId, CancellationToken ct = default)
     {
         var cart = await _repo.GetOrCreateAsync(userId, ct);
+        // save in case GetOrCreateAsync just built a new cart
+        await _repo.SaveChangesAsync(ct);
         return ToDto(cart);
     }
 
