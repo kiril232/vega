@@ -4,25 +4,7 @@ Vega is a full-stack e-commerce platform for an agricultural pharmacy. The
 backend is split into independently-deployable ASP.NET Core microservices and
 the frontend is a React + TypeScript SPA.
 
-The UX takes inspiration from docmorris.de — a calm, trustworthy pharmacy look
-with green accents, large product imagery, and a clear "add to cart" flow.
-
 ## Architecture
-
-```
-+----------------+        +-----------------+
-|  React (Vite)  | <----> |  User Service   |  /auth, /users
-|  TypeScript    |        +-----------------+
-|                |        +-----------------+
-|                | <----> | Product Service |  /products
-|                |        +-----------------+
-|                |        +-----------------+
-|                | <----> |  Cart Service   |  /cart
-|                |        +-----------------+
-|                |        +-----------------+
-|                | <----> |  Order Service  |  /orders --> Payment Service
-+----------------+        +-----------------+
-```
 
 Each service owns its own PostgreSQL schema (`users`, `products`, `carts`,
 `orders`) inside a shared `vega` database — services never read another
