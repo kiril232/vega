@@ -1,4 +1,3 @@
-/* docmorris-inspired palette: trusty greens, lots of white space */
 :root {
   --vega-green: #2f7a4f;
   --vega-green-dark: #205838;
@@ -11,7 +10,7 @@
   --vega-danger: #c0392b;
   --vega-radius: 10px;
   --vega-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
-  --vega-font: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  --vega-font: 'Outfit', system-ui, -apple-system, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
