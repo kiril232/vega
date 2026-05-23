@@ -49,9 +49,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<CartDbContext>();
-    var schema = db.Model.GetDefaultSchema() ?? "public";
-    db.Database.ExecuteSqlRaw($"CREATE SCHEMA IF NOT EXISTS \"{schema}\"");
-    db.Database.EnsureCreated();
+    DbInit.Apply(db);
 }
 
 if (app.Environment.IsDevelopment())
