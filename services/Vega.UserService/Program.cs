@@ -47,6 +47,11 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+    // create the schema first — EnsureCreated skips table creation if any
+    // table already exists anywhere in the database, so we need the schema
+    // to be present before it runs
+    var schema = db.Model.GetDefaultSchema() ?? "public";
+    db.Database.ExecuteSqlRaw($"CREATE SCHEMA IF NOT EXISTS \"{schema}\"");
     db.Database.EnsureCreated();
 }
 
