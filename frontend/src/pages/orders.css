@@ -17,35 +17,46 @@
   grid-template-columns: 1fr auto auto;
   align-items: center;
   gap: 16px;
-  padding: 14px 18px;
+  padding: 16px 20px;
   color: var(--vega-text);
+  border-left: 3px solid transparent;
+  transition: background 0.13s ease, border-color 0.13s ease;
 }
-.order-row:hover { text-decoration: none; background: var(--vega-green-soft); }
+.order-row:hover {
+  text-decoration: none;
+  background: var(--vega-green-soft);
+  border-left-color: var(--vega-green);
+}
 
 .order-id { font-weight: 600; }
-.small { font-size: 12px; }
+.small { font-size: 12px; color: var(--vega-muted); }
 
+/* ── Status badges ────────────────────────────────────────── */
 .status {
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   background: var(--vega-green-soft);
   color: var(--vega-green-dark);
 }
-.status-paid { background: #d8efdf; color: #1d6b3a; }
-.status-failed { background: #fdecea; color: var(--vega-danger); }
-.status-created { background: #fff4d6; color: #8a6a00; }
+.status-paid    { background: #d5eddf; color: #1a5c36; }
+.status-failed  { background: #fdecea; color: var(--vega-danger); }
+.status-created { background: #fff4d4; color: #7a5800; }
 
+/* ── Order detail ─────────────────────────────────────────── */
 .order-detail { padding: 32px 24px 60px; }
-.back-link { margin-bottom: 16px; display: inline-block; }
+.back-link { margin-bottom: 16px; display: inline-block; font-size: 14px; }
 
 .order-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 20px 24px;
   margin-bottom: 16px;
+  border-left: 4px solid var(--vega-green);
 }
 .order-header h1 { margin: 4px 0; font-size: 22px; }
 .order-header-status { text-align: right; }
@@ -56,10 +67,13 @@
   justify-content: space-between;
   padding: 12px 0;
   border-bottom: 1px solid var(--vega-border);
+  font-size: 14px;
 }
 .order-item-row:last-child { border-bottom: none; }
 .order-item-row.total {
   font-size: 16px;
+  font-weight: 700;
   padding-top: 16px;
   border-top: 1px solid var(--vega-border);
+  border-bottom: none;
 }

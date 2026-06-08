@@ -30,6 +30,10 @@ export default function RegisterPage() {
   return (
     <div className="auth-wrap">
       <form className="auth-card" onSubmit={onSubmit}>
+        <div className="auth-logo">
+          <div className="auth-logo-mark">V</div>
+          <span className="auth-logo-name">Vega</span>
+        </div>
         <h1>Create your account</h1>
         <p className="muted">A few details and you’re ready to shop.</p>
 
