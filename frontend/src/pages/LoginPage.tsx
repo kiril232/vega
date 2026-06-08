@@ -29,6 +29,10 @@ export default function LoginPage() {
   return (
     <div className="auth-wrap">
       <form className="auth-card" onSubmit={onSubmit}>
+        <div className="auth-logo">
+          <div className="auth-logo-mark">V</div>
+          <span className="auth-logo-name">Vega</span>
+        </div>
         <h1>Welcome back</h1>
         <p className="muted">Sign in to view your cart and orders.</p>
 

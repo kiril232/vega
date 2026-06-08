@@ -54,12 +54,27 @@ export default function HomePage() {
           <p className="muted">
             Trusted supplies for livestock, crops, and on-farm care. Delivered to your door.
           </p>
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <strong>200+</strong>
+              <span>Products</span>
+            </div>
+            <div className="hero-stat">
+              <strong>8</strong>
+              <span>Categories</span>
+            </div>
+            <div className="hero-stat">
+              <strong>Next day</strong>
+              <span>Delivery</span>
+            </div>
+          </div>
         </div>
         <div className="hero-art" aria-hidden>
           <div className="hero-circle" />
         </div>
       </section>
 
+      <p className="filters-label">Browse by category</p>
       <section className="filters">
         <button
           className={`filter-pill ${category === null ? 'active' : ''}`}
@@ -84,11 +99,19 @@ export default function HomePage() {
       {loading ? (
         <div className="muted">Loading products…</div>
       ) : (
-        <div className="grid">
-          {products.map((p) => (
-            <ProductCard key={p.id} product={p} onAdd={handleAdd} />
-          ))}
-        </div>
+        <>
+          <p className="grid-heading">
+            {category ? category : 'All products'} &nbsp;
+            <span className="muted" style={{ fontWeight: 400, fontSize: '14px' }}>
+              ({products.length})
+            </span>
+          </p>
+          <div className="grid">
+            {products.map((p) => (
+              <ProductCard key={p.id} product={p} onAdd={handleAdd} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

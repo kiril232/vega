@@ -1,75 +1,167 @@
 .home { padding: 32px 24px 60px; }
 
+/* ── Hero ─────────────────────────────────────────────────── */
 .hero {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   gap: 24px;
   align-items: center;
-  background: linear-gradient(135deg, var(--vega-green-soft) 0%, #fff 100%);
-  border-radius: 16px;
-  padding: 36px 36px;
-  border: 1px solid var(--vega-border);
-  margin-bottom: 32px;
+  background: linear-gradient(135deg, var(--vega-green-dark) 0%, #266644 55%, var(--vega-green-mid) 100%);
+  border-radius: 18px;
+  padding: 52px 48px;
+  margin-bottom: 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--vega-shadow-lg);
 }
+
+/* decorative blurred circles behind content */
+.hero::before {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: 60px;
+  bottom: -140px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+
+.hero > div { position: relative; z-index: 1; }
 
 .hero h1 {
-  margin: 0 0 8px;
-  font-size: 30px;
-  color: var(--vega-green-dark);
+  margin: 0 0 10px;
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
 }
 
-.hero p {
-  margin: 0;
-  font-size: 15px;
-  max-width: 480px;
+.hero .muted {
+  color: rgba(255,255,255,0.78);
+  font-size: 16px;
+  margin: 0 0 28px;
+  max-width: 440px;
 }
 
+/* ── Hero stat numbers ────────────────────────────────────── */
+.hero-stats {
+  display: flex;
+  gap: 28px;
+}
+
+.hero-stat strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.hero-stat span {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.60);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ── Hero decorative art ──────────────────────────────────── */
 .hero-art {
   display: flex;
   justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
 }
+
 .hero-circle {
-  width: 160px;
-  height: 160px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, var(--vega-green-soft) 60%, var(--vega-green) 100%);
-  box-shadow: var(--vega-shadow);
+  background: rgba(255,255,255,0.10);
+  border: 2px solid rgba(255,255,255,0.18);
+  box-shadow:
+    0 0 0 22px rgba(255,255,255,0.06),
+    0 0 0 44px rgba(255,255,255,0.03);
+}
+
+/* ── Category filter pills ────────────────────────────────── */
+.filters-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vega-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
 }
 
 .filters {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .filter-pill {
-  padding: 7px 14px;
+  padding: 7px 16px;
   border-radius: 999px;
   background: #fff;
-  border: 1px solid var(--vega-border);
+  border: 1.5px solid var(--vega-border);
   color: var(--vega-muted);
   font-size: 13px;
   font-weight: 500;
+  transition: all 0.13s ease;
 }
-.filter-pill:hover { color: var(--vega-text); }
+.filter-pill:hover {
+  border-color: var(--vega-green);
+  color: var(--vega-green-dark);
+}
 .filter-pill.active {
   background: var(--vega-green);
   color: #fff;
   border-color: var(--vega-green);
+  box-shadow: 0 2px 8px rgba(47,122,79,0.28);
+}
+
+/* ── Products grid ────────────────────────────────────────── */
+.grid-heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vega-text);
+  margin-bottom: 16px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(228px, 1fr));
+  gap: 20px;
 }
 
+/* ── Toast ────────────────────────────────────────────────── */
 .toast {
   position: fixed;
-  bottom: 20px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 30;
-  box-shadow: var(--vega-shadow);
+  box-shadow: var(--vega-shadow-lg);
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 500;
+  white-space: nowrap;
 }

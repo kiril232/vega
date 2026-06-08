@@ -1,16 +1,18 @@
 :root {
-  --vega-green: #2f7a4f;
-  --vega-green-dark: #205838;
-  --vega-green-soft: #e8f3ec;
-  --vega-accent: #ffb400;
-  --vega-text: #1f2a26;
-  --vega-muted: #6b7a72;
-  --vega-border: #e2e6e3;
-  --vega-bg: #f7faf7;
-  --vega-danger: #c0392b;
-  --vega-radius: 10px;
-  --vega-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
-  --vega-font: 'Outfit', system-ui, -apple-system, Arial, sans-serif;
+  --vega-green:      #2f7a4f;
+  --vega-green-mid:  #3d9462;
+  --vega-green-dark: #1d4d33;
+  --vega-green-soft: #eaf4ee;
+  --vega-accent:     #f5a623;
+  --vega-text:       #1a2820;
+  --vega-muted:      #637068;
+  --vega-border:     #dde8e2;
+  --vega-bg:         #f3f7f4;
+  --vega-danger:     #c0392b;
+  --vega-radius:     12px;
+  --vega-shadow:     0 1px 4px rgba(0,0,0,0.06), 0 6px 18px rgba(0,0,0,0.07);
+  --vega-shadow-lg:  0 4px 8px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.14);
+  --vega-font:       'Outfit', system-ui, -apple-system, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -45,35 +47,63 @@ input, select, textarea {
   padding: 0 24px;
 }
 
+/* ── Buttons ─────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 10px 18px;
   border-radius: var(--vega-radius);
   font-weight: 600;
   font-size: 14px;
   background: var(--vega-green);
   color: #fff;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+  box-shadow: 0 2px 8px rgba(47, 122, 79, 0.30);
 }
-.btn:hover { background: var(--vega-green-dark); }
-.btn:disabled { background: #b9c8bf; cursor: not-allowed; }
+.btn:hover {
+  background: var(--vega-green-dark);
+  box-shadow: 0 4px 14px rgba(47, 122, 79, 0.38);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.btn:active { transform: translateY(0); }
+.btn:disabled {
+  background: #b9c8bf;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
 
 .btn-outline {
   background: transparent;
   color: var(--vega-green);
-  border: 1px solid var(--vega-green);
+  border: 1.5px solid var(--vega-green);
+  box-shadow: none;
 }
-.btn-outline:hover { background: var(--vega-green-soft); }
+.btn-outline:hover {
+  background: var(--vega-green-soft);
+  box-shadow: none;
+  transform: none;
+}
 
 .btn-ghost {
   background: transparent;
   color: var(--vega-muted);
+  box-shadow: none;
+  border-radius: 999px;
+  padding: 7px 14px;
 }
-.btn-ghost:hover { color: var(--vega-text); background: var(--vega-green-soft); }
+.btn-ghost:hover {
+  color: var(--vega-green-dark);
+  background: var(--vega-green-soft);
+  box-shadow: none;
+  transform: none;
+  text-decoration: none;
+}
 
+/* ── Cards ───────────────────────────────────────────────── */
 .card {
   background: #fff;
   border-radius: var(--vega-radius);
@@ -81,6 +111,7 @@ input, select, textarea {
   border: 1px solid var(--vega-border);
 }
 
+/* ── Form fields ─────────────────────────────────────────── */
 .field {
   display: flex;
   flex-direction: column;
@@ -93,7 +124,7 @@ input, select, textarea {
   font-weight: 500;
 }
 .field input {
-  border: 1px solid var(--vega-border);
+  border: 1.5px solid var(--vega-border);
   border-radius: 8px;
   padding: 10px 12px;
   background: #fff;
@@ -104,22 +135,26 @@ input, select, textarea {
   box-shadow: 0 0 0 3px rgba(47, 122, 79, 0.15);
 }
 
+/* ── Notices ─────────────────────────────────────────────── */
 .notice {
   padding: 10px 14px;
   border-radius: 8px;
   font-size: 13px;
 }
 .notice.error { background: #fdecea; color: var(--vega-danger); }
-.notice.info { background: var(--vega-green-soft); color: var(--vega-green-dark); }
+.notice.info  { background: var(--vega-green-soft); color: var(--vega-green-dark); }
 
+/* ── Badge ───────────────────────────────────────────────── */
 .badge {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   background: var(--vega-green-soft);
   color: var(--vega-green-dark);
-  font-weight: 600;
 }
 
 .muted { color: var(--vega-muted); }
