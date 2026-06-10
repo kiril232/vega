@@ -1,0 +1,42 @@
+# Build outputs
+bin/
+obj/
+out/
+publish/
+
+# IDE / editors
+.vs/
+.vscode/
+.idea/
+
+# Node / frontend (if present in repo)
+node_modules/
+
+# NuGet / packages / artifacts
+packages/
+*.nupkg
+
+# User / OS / logs
+*.user
+*.suo
+*.log
+logs/
+.DS_Store
+Thumbs.db
+
+# Test / coverage
+TestResults/
+coverage/
+*.coverage
+
+# Env / secrets
+.env
+.env.*.local
+.secrets/
+
+# Git and VCS
+.git
+.gitignore
+
+# Misc
+*.tsbuildinfo
