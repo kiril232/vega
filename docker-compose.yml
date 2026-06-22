@@ -1,4 +1,5 @@
 services:
+  # db
   postgres:
     image: postgres:16
     container_name: vega-postgres
@@ -10,6 +11,116 @@ services:
       - "5433:5432"
     volumes:
       - vega-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vega -d vega"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # user service
+  user-service:
+    build:
+      context: ./services/Vega.UserService
+      dockerfile: Dockerfile
+    ports:
+      - "5001:8080"
+    environment:
+      Jwt__Issuer: vega-app
+      Jwt_Audience: vega-users
+      Jwt__Key: "b7f3c9e2a91d4f6c8e5a7d1f9b3c6e8a4d7f1c9b2e6a8d5f3c1e9a7b4d6f8c2"
+      Jwt__ExpiresMinutes: "60"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=vega;"
+      ASPNETCORE_ENVIRONMENT: Production
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # product service
+  product-service:
+    build:
+      context: ./services/Vega.ProductService
+      dockerfile: Dockerfile
+    ports:
+      - "5002:8080"
+    environment:
+      Jwt__Issuer: vega-app
+      Jwt_Audience: vega-users
+      Jwt__Key: "b7f3c9e2a91d4f6c8e5a7d1f9b3c6e8a4d7f1c9b2e6a8d5f3c1e9a7b4d6f8c2"
+      Jwt__ExpiresMinutes: "60"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=vega;"
+      ASPNETCORE_ENVIRONMENT: Production
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # cart service
+  cart-service:
+    build:
+      context: ./services/Vega.CartService
+      dockerfile: Dockerfile
+    ports:
+      - "5003:8080"
+    environment:
+      Jwt__Issuer: vega-app
+      Jwt_Audience: vega-users
+      Jwt__Key: "b7f3c9e2a91d4f6c8e5a7d1f9b3c6e8a4d7f1c9b2e6a8d5f3c1e9a7b4d6f8c2"
+      Jwt__ExpiresMinutes: "60"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=vega;"
+      ASPNETCORE_ENVIRONMENT: Production
+      ProductService__BaseUrl: http://product-service:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+      product-service:
+        condition: service_started
+
+  # order service
+  order-service:
+    build:
+      context: ./services/Vega.OrderService
+      dockerfile: Dockerfile
+    ports:
+      - "5004:8080"
+    environment:
+      Jwt__Issuer: vega-app
+      Jwt_Audience: vega-users
+      Jwt__Key: "b7f3c9e2a91d4f6c8e5a7d1f9b3c6e8a4d7f1c9b2e6a8d5f3c1e9a7b4d6f8c2"
+      Jwt__ExpiresMinutes: "60"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=vega;"
+      ASPNETCORE_ENVIRONMENT: Production
+      Services__CartUrl: http://cart-service:8080
+      Services__PaymentUrl: http://payment-service:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # payment service
+  payment-service:
+    build:
+      context: ./services/Vega.PaymentService
+      dockerfile: Dockerfile
+    ports:
+      - "5005:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+
+  # frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_USER_API: http://localhost:5001
+        VITE_PRODUCT_API: http://localhost:5002
+        VITE_CART_API: http://localhost:5003
+        VITE_ORDER_API: http://localhost:5004
+    ports:
+      - "5173:80"
+    depends_on:
+      - user-service
+      - product-service
+      - cart-service
+      - order-service
 
 volumes:
   vega-pg:
