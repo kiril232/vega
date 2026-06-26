@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-service
+  namespace: vega
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart-service
+  template:
+    metadata:
+      labels:
+        app: cart-service
+    spec:
+      containers:
+        - name: cart-service
+          image: kiril232/vega-cart-service:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: vega-config
+          env:
+            - name: ConnectionStrings__Default
+              value: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=vega;"
+            - name: Jwt__Key
+              valueFrom:
+                secretKeyRef:
+                  name: vega-secret
+                  key: jwt-key
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-service
+  namespace: vega
+spec:
+  selector:
+    app: cart-service
+  ports:
+    - port: 8080
+      targetPort: 8080

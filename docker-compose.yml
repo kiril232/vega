@@ -67,7 +67,7 @@ services:
       Jwt__ExpiresMinutes: "60"
       ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=vega;"
       ASPNETCORE_ENVIRONMENT: Production
-      ProductService__BaseUrl: http://product-service:8080
+      Services__ProductUrl: http://product-service:8080
     depends_on:
       postgres:
         condition: service_healthy
