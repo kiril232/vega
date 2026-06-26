@@ -15,7 +15,7 @@ builder.Services.AddScoped<ICartService, Vega.CartService.Services.CartService>(
 
 builder.Services.AddHttpClient<IProductClient, ProductClient>(c =>
 {
-    c.BaseAddress = new Uri(builder.Configuration["ProductService:BaseUrl"] ?? "http://localhost:5002");
+    c.BaseAddress = new Uri(builder.Configuration["Services:ProductUrl"] ?? "http://localhost:5002");
     c.Timeout = TimeSpan.FromSeconds(5);
 });
 
