@@ -4,6 +4,8 @@ kind: Ingress
 metadata:
   name: vega-ingress
   namespace: vega
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: vega-strip-prefix@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
@@ -12,7 +14,7 @@ spec:
         paths:
           - path: /users
             pathType: Prefix
-            backend:
+            backend:  
               service:
                 name: user-service
                 port:
