@@ -47,8 +47,8 @@ jobs:
         run: npm run build
         working-directory: frontend
 
-  build-images:
-    name: Docker build
+  build-and-push-images:
+    name: Docker build and push images
     runs-on: ubuntu-latest
     needs: [build-dotnet, build-frontend]
 
@@ -59,50 +59,98 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build user-service image
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}  
+
+      - name: Build and push user-service image
         uses: docker/build-push-action@v5
         with:
           context: ./services/Vega.UserService
-          push: false
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-user-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-user-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build product-service image
+      - name: Build and push product-service image
         uses: docker/build-push-action@v5
         with:
           context: ./services/Vega.ProductService
-          push: false
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build cart-service image
+      - name: Build and push cart-service image
         uses: docker/build-push-action@v5
         with:
           context: ./services/Vega.CartService
-          push: false
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build order-service image
+      - name: Build and push order-service image
         uses: docker/build-push-action@v5
         with:
           context: ./services/Vega.OrderService
-          push: false
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build payment-service image
+      - name: Build and push payment-service image
         uses: docker/build-push-action@v5
         with:
           context: ./services/Vega.PaymentService
-          push: false
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build frontend image
+      - name: Build and push frontend image
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
-          push: false
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Checkout gitops branch
+        uses: actions/checkout@v4
+        with:
+          ref: gitops
+          path: gitops
+
+      - name: Update image tags in gitops branch
+        run: |
+          sed -i "s|image: .*/vega-user-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-user-service:${{ github.sha }}|g" gitops/k8s/user-service.yaml
+          sed -i "s|image: .*/vega-product-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}|g" gitops/k8s/product-service.yaml
+          sed -i "s|image: .*/vega-cart-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-cart-service:${{ github.sha }}|g" gitops/k8s/cart-service.yaml
+          sed -i "s|image: .*/vega-order-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-order-service:${{ github.sha }}|g" gitops/k8s/order-service.yaml
+          sed -i "s|image: .*/vega-payment-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-payment-service:${{ github.sha }}|g" gitops/k8s/payment-service.yaml
+          sed -i "s|image: .*/vega-frontend:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-frontend:${{ github.sha }}|g" gitops/k8s/frontend.yaml
+
+      - name: Commit and push to gitops branch
+        run: |
+          cd gitops
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add k8s/
+          git commit -m "Update image tags to ${{ github.sha }}"
+          git push
