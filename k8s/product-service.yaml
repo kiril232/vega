@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: kiril232/vega-product-service:cd02ec69ce933ce9225923596f41bb72462e0ed2
+          image: kiril232/vega-product-service:6c4b8962a6e12b433948889c9039cef1a236d7f7
           ports:
             - containerPort: 8080
           envFrom:
