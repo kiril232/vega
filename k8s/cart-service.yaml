@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: cart-service
-          image: kiril232/vega-cart-service:latest
+          image: kiril232/vega-cart-service:cd02ec69ce933ce9225923596f41bb72462e0ed2
           ports:
             - containerPort: 8080
           envFrom:

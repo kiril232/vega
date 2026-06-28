@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: kiril232/vega-user-service:latest
+          image: kiril232/vega-user-service:cd02ec69ce933ce9225923596f41bb72462e0ed2
           ports:
             - containerPort: 8080
           envFrom:
