@@ -13,7 +13,7 @@ export default function Header() {
       <div className="container vega-header-row">
         <Link to="/" className="vega-logo">
           <span className="vega-logo-mark">V</span>
-          <span>Vega</span>
+          <span>Vega v2</span>
           <small>Agricultural Pharmacy</small>
         </Link>
 

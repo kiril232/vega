@@ -93,8 +93,8 @@ jobs:
           context: ./services/Vega.CartService
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-cart-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-cart-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -104,8 +104,8 @@ jobs:
           context: ./services/Vega.OrderService
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-order-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-order-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -115,8 +115,8 @@ jobs:
           context: ./services/Vega.PaymentService
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-payment-service:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-payment-service:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -126,8 +126,8 @@ jobs:
           context: ./frontend
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-frontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vega-frontend:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -137,8 +137,9 @@ jobs:
           ref: gitops
           path: gitops
 
-      - name: Update image tags in gitops branch
+      - name: Sync gitops with main and Update image tags in gitops branch
         run: |
+          cp -r k8s/. gitops/k8s/
           sed -i "s|image: .*/vega-user-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-user-service:${{ github.sha }}|g" gitops/k8s/user-service.yaml
           sed -i "s|image: .*/vega-product-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-product-service:${{ github.sha }}|g" gitops/k8s/product-service.yaml
           sed -i "s|image: .*/vega-cart-service:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/vega-cart-service:${{ github.sha }}|g" gitops/k8s/cart-service.yaml
