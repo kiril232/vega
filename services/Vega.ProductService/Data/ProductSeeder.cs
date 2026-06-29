@@ -8,7 +8,7 @@ public static class ProductSeeder
     {
         if (db.Products.Any()) return;
 
-        // some sample inventory for an agri-pharmacy
+        // some sample inventory
         db.Products.AddRange(
             new Product
             {
