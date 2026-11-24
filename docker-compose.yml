@@ -5,7 +5,7 @@ services:
     container_name: vega-postgres
     environment:
       POSTGRES_USER: vega
-      POSTGRES_PASSWORD: CHANGE_ME
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
       POSTGRES_DB: vega
     ports:
       - "5433:5432"
@@ -26,10 +26,10 @@ services:
       - "5001:8080"
     environment:
       Jwt__Issuer: vega-app
-      Jwt_Audience: vega-users
-      Jwt__Key: "CHANGE_ME_JWT_KEY"
+      Jwt__Audience: vega-users
+      Jwt__Key: ${JWT_KEY:?set JWT_KEY in .env}
       Jwt__ExpiresMinutes: "60"
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=CHANGE_ME;"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env};"
       ASPNETCORE_ENVIRONMENT: Production
     depends_on:
       postgres:
@@ -44,10 +44,10 @@ services:
       - "5002:8080"
     environment:
       Jwt__Issuer: vega-app
-      Jwt_Audience: vega-users
-      Jwt__Key: "CHANGE_ME_JWT_KEY"
+      Jwt__Audience: vega-users
+      Jwt__Key: ${JWT_KEY:?set JWT_KEY in .env}
       Jwt__ExpiresMinutes: "60"
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=CHANGE_ME;"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env};"
       ASPNETCORE_ENVIRONMENT: Production
     depends_on:
       postgres:
@@ -62,10 +62,10 @@ services:
       - "5003:8080"
     environment:
       Jwt__Issuer: vega-app
-      Jwt_Audience: vega-users
-      Jwt__Key: "CHANGE_ME_JWT_KEY"
+      Jwt__Audience: vega-users
+      Jwt__Key: ${JWT_KEY:?set JWT_KEY in .env}
       Jwt__ExpiresMinutes: "60"
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=CHANGE_ME;"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env};"
       ASPNETCORE_ENVIRONMENT: Production
       Services__ProductUrl: http://product-service:8080
     depends_on:
@@ -83,10 +83,10 @@ services:
       - "5004:8080"
     environment:
       Jwt__Issuer: vega-app
-      Jwt_Audience: vega-users
-      Jwt__Key: "CHANGE_ME_JWT_KEY"
+      Jwt__Audience: vega-users
+      Jwt__Key: ${JWT_KEY:?set JWT_KEY in .env}
       Jwt__ExpiresMinutes: "60"
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=CHANGE_ME;"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env};"
       ASPNETCORE_ENVIRONMENT: Production
       Services__CartUrl: http://cart-service:8080
       Services__PaymentUrl: http://payment-service:8080

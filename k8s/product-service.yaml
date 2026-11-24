@@ -22,8 +22,13 @@ spec:
             - configMapRef:
                 name: vega-config
           env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vega-secret
+                  key: db-password
             - name: ConnectionStrings__Default
-              value: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=CHANGE_ME;"
+              value: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=$(DB_PASSWORD);"
             - name: Jwt__Key
               valueFrom:
                 secretKeyRef:

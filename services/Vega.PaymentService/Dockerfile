@@ -15,6 +15,8 @@ WORKDIR app/
 
 COPY --from=build /app/publish .
 
+USER $APP_UID
+
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "Vega.PaymentService.dll"]
