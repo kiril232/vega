@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: kiril232/vega-frontend:b201df970336a4006350525b943c3da57f6a6ac8
+          image: kiril232/vega-frontend:f570138ca1689813d077984b71ed14b0d3a4c66e
           ports:
             - containerPort: 80
           resources:

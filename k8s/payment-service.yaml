@@ -15,20 +15,12 @@ spec:
     spec:
       containers:
         - name: payment-service
-          image: kiril232/vega-payment-service:b201df970336a4006350525b943c3da57f6a6ac8
+          image: kiril232/vega-payment-service:f570138ca1689813d077984b71ed14b0d3a4c66e
           ports:
             - containerPort: 8080
           envFrom:
             - configMapRef:
                 name: vega-config
-          env:
-            - name: ConnectionStrings__Default
-              value: "Host=postgres;Port=5432;Database=vega;Username=vega;Password=CHANGE_ME;"
-            - name: Jwt__Key
-              valueFrom:
-                secretKeyRef:
-                  name: vega-secret
-                  key: jwt-key
           resources:
             requests:
               memory: "128Mi"
